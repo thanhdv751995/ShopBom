@@ -1,9 +1,5 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false,
-    "defaultCollection": "@angular-eslint/schematics"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -12,6 +8,9 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -27,44 +26,17 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "allowedCommonJsDependencies": ["chart.js", "js-sha256"],
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
+            ],
             "styles": [
-              {
-                "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-                "inject": true,
-                "bundleName": "fontawesome-all.min"
-              },
-              {
-                "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-                "inject": true,
-                "bundleName": "fontawesome-v4-shims.min"
-              },
-              {
-                "input": "node_modules/@swimlane/ngx-datatable/index.css",
-                "inject": true,
-                "bundleName": "ngx-datatable-index"
-              },
-              {
-                "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
-                "inject": true,
-                "bundleName": "ngx-datatable-icons"
-              },
-              {
-                "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
-                "inject": true,
-                "bundleName": "ngx-datatable-material"
-              },
-              {
-                "input": "node_modules/bootstrap/dist/css/bootstrap.rtl.min.css",
-                "inject": false,
-                "bundleName": "bootstrap-rtl.min"
-              },
-              {
-                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                "inject": true,
-                "bundleName": "bootstrap-ltr.min"
-              },
+              "src/theme.less",
               "src/styles.scss"
             ],
             "scripts": []
@@ -74,8 +46,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "2.5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -128,15 +100,14 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }

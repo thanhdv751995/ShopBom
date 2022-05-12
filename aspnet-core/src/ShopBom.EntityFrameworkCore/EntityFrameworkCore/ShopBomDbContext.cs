@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopBom.Colors;
 using ShopBom.Customers;
+using ShopBom.Images;
 using ShopBom.IntermediaryProductTypes;
 using ShopBom.Orders;
 using ShopBom.ProductColors;
@@ -42,6 +43,7 @@ namespace ShopBom.EntityFrameworkCore
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductPromotion> ProductPromotions { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
+        public DbSet<Image> Images { get; set; }
         #region Entities from the modules
 
         /* Notice: We only implemented IIdentityDbContext and ITenantManagementDbContext
@@ -183,6 +185,14 @@ namespace ShopBom.EntityFrameworkCore
                 //...
                 b.HasOne<Product>().WithMany().HasForeignKey(x => x.IdProduct).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 b.HasOne<Color>().WithMany().HasForeignKey(x => x.IdSize).IsRequired().OnDelete(DeleteBehavior.NoAction);
+            });
+            builder.Entity<Image>(b =>
+            {
+                b.ToTable(ShopBomConsts.DbTablePrefix + "Images", ShopBomConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+                //...
+                b.Property(x => x.URl).IsRequired();;
+                b.HasOne<Product>().WithMany().HasForeignKey(x => x.IdProduct).IsRequired().OnDelete(DeleteBehavior.NoAction);
             });
         }
     }

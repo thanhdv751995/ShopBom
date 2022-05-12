@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <abp-loader-bar></abp-loader-bar>
-    <abp-dynamic-layout></abp-dynamic-layout>
-  `,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+  isCollapsed = false;
+  constructor(public router: Router) {
+
+  }
+}

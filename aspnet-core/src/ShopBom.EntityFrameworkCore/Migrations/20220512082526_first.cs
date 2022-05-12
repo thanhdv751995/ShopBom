@@ -515,6 +515,30 @@ namespace ShopBom.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    URl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdProduct = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppImages_AppProducts_IdProduct",
+                        column: x => x.IdProduct,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppIntermediaryProductTypes",
                 columns: table => new
                 {
@@ -761,6 +785,11 @@ namespace ShopBom.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppImages_IdProduct",
+                table: "AppImages",
+                column: "IdProduct");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppIntermediaryProductTypes_IdProduct",
                 table: "AppIntermediaryProductTypes",
                 column: "IdProduct");
@@ -861,6 +890,9 @@ namespace ShopBom.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppCustomers");
+
+            migrationBuilder.DropTable(
+                name: "AppImages");
 
             migrationBuilder.DropTable(
                 name: "AppIntermediaryProductTypes");
