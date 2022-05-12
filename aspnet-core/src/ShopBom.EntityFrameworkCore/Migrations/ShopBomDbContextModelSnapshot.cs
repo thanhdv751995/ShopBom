@@ -18,7 +18,7 @@ namespace ShopBom.Migrations
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.SqlServer)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.16")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ShopBom.Colors.Color", b =>
@@ -110,6 +110,51 @@ namespace ShopBom.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppCustomers");
+                });
+
+            modelBuilder.Entity("ShopBom.Images.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<Guid>("IdProduct")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("URl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdProduct");
+
+                    b.ToTable("AppImages");
                 });
 
             modelBuilder.Entity("ShopBom.IntermediaryProductTypes.IntermediaryProductType", b =>
@@ -1278,6 +1323,15 @@ namespace ShopBom.Migrations
                     b.HasKey("TenantId", "Name");
 
                     b.ToTable("AbpTenantConnectionStrings");
+                });
+
+            modelBuilder.Entity("ShopBom.Images.Image", b =>
+                {
+                    b.HasOne("ShopBom.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("IdProduct")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ShopBom.IntermediaryProductTypes.IntermediaryProductType", b =>
