@@ -1,0 +1,162 @@
+<div class="container-fluid">
+    <div style="margin-top: 10px" nz-row>
+      <div style="text-align: left; padding-left: 10px" nz-col nzSpan="5">
+        <div>
+          <img src="https://truongminhthinh.com/Themes/tmt/Content/images/logo/logo.png" />
+        </div>
+        <div>
+          <div style="text-align: center; font-size: 20px; font-weight: 500">User Profile</div>
+          <label for="website" style="margin-top: 5px">Id </label>
+          <input
+            style="border-radius: 5px"
+            disabled="true"
+            [(ngModel)]="id"
+            type="text"
+            class="form-control"
+            id="website"
+            placeholder="Id"
+          />
+        </div>
+        <div>
+          <label for="fullName" style="margin-top: 5px"
+            >Name <span class="form-required">*</span></label
+          >
+          <input
+            readonly="true"
+            style="border-radius: 5px"
+            type="text"
+            class="form-control"
+            id="fullName"
+            placeholder="Enter full name"
+          />
+        </div>
+        <div>
+          <label for="eMail" style="margin-top: 5px"
+            >Email Address <span class="form-required">*</span></label
+          >
+          <input
+            style="border-radius: 5px"
+            type="email"
+            class="form-control"
+            id="eMail"
+            placeholder="Enter email"
+          />
+        </div>
+        <div>
+          <label for="phone" style="margin-top: 5px"
+            >Phone <span class="form-required">*</span></label
+          >
+          <input
+            style="border-radius: 5px"
+            disabled="true"
+            type="text"
+            class="form-control"
+            id="phone"
+            placeholder="Phone number"
+          />
+        </div>
+        <div>
+          <button
+            style="margin-top: 10px; float: right"
+            nz-button
+            nzType="primary"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+      <div nz-col nzSpan="19" style="padding-left: 20px;">
+          <div nz-row>
+            <div nz-col nzSpan="4">
+              <nz-select
+              style="width: 100%;"
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="Select a Project"
+                [(ngModel)]="projectId"
+                (ngModelChange)="onChangeProject($event)"
+              >
+                <!-- <nz-option *ngFor="let item of projectList?.items" nzLabel="{{item.name}}" nzValue="{{item.id}}"></nz-option> -->
+              </nz-select>
+            </div>
+            <div nz-col nzSpan="8">
+              <button
+                nzSize="small"
+                class="status"
+                [class.choosen]="filterStatus == 'null'"
+                (click)="onChangeStatus('null')"
+                nz-button
+              >
+                <span>All</span>
+              </button>
+              <ng-container *ngFor="let item of listStatus">
+                <button
+                  nzSize="small"
+                  class="status"
+                  [class.choosen]="filterStatus == item.id"
+                  (click)="onChangeStatus(item.id)"
+                  nz-button
+                >
+                  {{ item.name }}
+                </button>
+              </ng-container>
+            </div>
+            <div nz-col nzSpan="12"></div>
+        </div>
+        <div style="margin-top: 10px">
+          <nz-table #basicTable [nzPageSize]="10" [nzData]="listIssues?.items">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Finish Date</th>
+                <th>Status</th>
+                <!-- <th>Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="text-align: center" *ngFor="let data of basicTable.data">
+                <td>
+                  <nz-tag [nzColor]="'#f50'">{{ data.projectName }}</nz-tag>
+                </td>
+                <td>
+                  <a nz-tooltip nzTooltipTitle="issue manager" style="color: rgb(64, 128, 212)">{{
+                    data.name
+                  }}</a>
+                </td>
+                <td>
+                  <nz-tag [nzColor]="'blue'">{{ data.startDate | date }}</nz-tag>
+                </td>
+                <td>
+                  <nz-tag [nzColor]="'#f50'">{{ data.dueDate | date }}</nz-tag>
+                </td>
+                <td>
+                  <nz-tag [nzColor]="'blue'">{{ data.finishDate | date }}</nz-tag>
+                </td>
+                <td>
+                  <nz-badge nzColor="{{ data.nzColor }}" nzText="{{ data.statusName }}"></nz-badge>
+                </td>
+                <!-- <td>
+                  <i
+                    class="iconDelete"
+                    nz-icon
+                    nzType="close"
+                    nzTheme="outline"
+                    nz-popconfirm
+                    nzPopconfirmTitle="Are you sure delete this issue?"
+                    (nzOnConfirm)="RemoveIssue(data.id)"
+                    nzTooltipTitle="Remove Issue"
+                    nz-tooltip
+                  >
+                  </i>
+                </td> -->
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

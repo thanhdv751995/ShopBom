@@ -1,47 +1,50 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+  <nz-sider *ngIf="!this.router.url.includes('login')" class="menu-sidebar" nzCollapsible nzWidth="256px"
+    nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjeWE1AkPeX6yFzZbLmRyoxc-J_y3SVpKtJCbdy1XM_9P7TljHxFCSFsG0xFoYvu-_57Q&usqp=CAU"
+          alt="logo">
+        <h1>SHOP BOM</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzSelected>
+        <i nz-icon nzType="read"></i>
+        <span>Sản Phẩm</span>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right">
+        <i nz-icon nzType="shopping-cart"></i>
+        <span>Đơn Hàng</span>
+      </li>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right">
+        <i nz-icon nzType="solution"></i>
+        <span>Khách Hàng</span>
+      </li>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right">
+        <i nz-icon nzType="percentage"></i>
+        <span>Khuyến Mãi</span>
+      </li>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right">
+        <i nz-icon nzType="highlight"></i>
+        <span>Màu sp</span>
+      </li>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right">
+        <i nz-icon nzType="sliders"></i>
+        <span>Size</span>
+      </li>
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right">
+        <i nz-icon nzType="database"></i>
+        <span>Loại sp</span>
       </li>
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-header>
+    <nz-header *ngIf="!this.router.url.includes('login')">
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
       </div>
     </nz-header>
