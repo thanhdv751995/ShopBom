@@ -30,6 +30,14 @@ namespace ShopBom.Images
             await _imageRepository.InsertAsync(image);
             return ObjectMapper.Map<Image, ImageDto>(image);
         }
+        public async Task CreateByListAsync(string[] imgList, Guid productId)
+        {
+            foreach (string img in imgList)
+            {
+                var image = _imageManager.CreateAsync(img, productId);
+                await _imageRepository.InsertAsync(image);
+            }
+        }
         public async Task<List<ImageDto>> GetListAsync()
         {
             var images = await _imageRepository.GetListAsync();

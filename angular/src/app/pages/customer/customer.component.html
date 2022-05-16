@@ -1,0 +1,120 @@
+<div id="Issue">
+    <div class="nameIssues" style="margin-left: 10px">
+        <label style="font-size: 14px;margin-left: 25%;">Filter Customer</label><br />
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" [(ngModel)]="selectedCustomer" (ngModelChange)="CustomerChange(selectedCustomer)"
+                nz-input placeholder="Enter Customer Name" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+            <i (click)="getCustomer(selectedCustomer)" nz-icon nzType="search"></i>
+        </ng-template>
+    </div>
+    <button id="btnAddProduct" nz-button (click)="showModalAddProduct()" nzType="primary" nzDanger>
+        <i class="fas fa-plus iconHover"></i>
+        Customer
+    </button>
+
+    <nz-modal [(nzVisible)]="isVisibleAddCustomer" nzTitle="New Product" (nzOnCancel)="handleCancelAddProduct()"
+        (nzOnOk)="handleOkAddProduct()" [nzOkLoading]="isOkLoadingAddCustomer" modalContent>
+        <ng-container *nzModalContent>
+            <form [formGroup]="customerForm">
+                <div>
+                    <p>Tên Khách Hàng</p>
+                    <input autofocus nz-input formControlName="name" placeholder="Name Customer" required />
+                </div>
+                <br>
+                <div>
+                    <p>Số Điện Thoại</p>
+                    <input nz-input placeholder="Phone Number" formControlName="phoneNumber" required />
+                </div>
+                <br>
+                <div>
+                    <p>Địa Chỉ Khách Hàng</p>
+                    <input nz-input placeholder="Address" formControlName="address" required />
+                </div>
+                <br>
+                <div>
+                    <p>Email</p>
+                    <input nz-input placeholder="Email" formControlName="email" required />
+                </div>
+            </form>
+        </ng-container>
+
+    </nz-modal>
+</div>
+
+<div id="pc-card">
+    <nz-card nzSize="small">
+        <div nz-row style=" display: flex;">
+            <div nz-col nzSpan="7">Tên sản Phẩm</div>
+            <div nz-col nzSpan="3">Giá</div>
+            <div nz-col nzSpan="3">Màu</div>
+            <div nz-col nzSpan="3">Size</div>
+            <div nz-col nzSpan="4">Loại Sản Phẩm</div>
+            <div nz-col nzSpan="2">Sửa</div>
+            <div nz-col nzSpan="2">Xóa</div>
+        </div>
+    </nz-card>
+    <nz-spin style="
+          display: block;
+          position: relative;
+          margin-left: 45%;
+          margin-top: 15%;
+          width: 50%;
+          z-index: 99;
+          color: #f50;
+        " *ngIf="isGetListCustomerLoading;" nzSimple [nzSize]="'large'" [nzIndicator]="indicatorTemplate">
+    </nz-spin>
+    <ng-template #indicatorTemplate><i nz-icon nzType="loading"
+            style="font-size: 35px; color: rgba(255, 85, 0, 0.8)"></i>
+    </ng-template>
+    <ng-template>
+        <ng-container>
+            <nz-card style="
+              width: 100%;
+              padding: 5px;
+              margin-top: 5px;
+              border-left: solid 2px rgba(255, 85, 0, 0.8);
+            " nzSize="small" *ngFor="let item of listCustomer?.items; let i = index" @fadeIn>
+                <div nz-row>
+                    <div nz-col nzSpan="7">
+                        <span style="font-weight: 500; word-break: break-word; cursor: pointer">{{ item.name }}
+                        </span>
+                    </div>
+                    <div nz-col nzSpan="3">
+                        {{ item.categoryName }}
+                    </div>
+                    <div nz-col nzSpan="3">{{ item.priorityValue }}</div>
+                    <div nz-col nzSpan="3">{{ item.levelValue }}</div>
+
+                    <div nz-col nzSpan="4">
+                        <nz-tag>{{ item.dueDate | date }}</nz-tag>
+                    </div>
+                    <div nz-col nzSpan="2">
+                        <nz-badge nzColor="{{ item.nzColor }}" nzText="{{ item.statusName }}"></nz-badge>
+                    </div>
+                    <div nz-col nzSpan="2">{{ item.userName }}</div>
+                </div>
+            </nz-card>
+        </ng-container>
+    </ng-template>
+</div>
+
+<!-- <nz-pagination
+      id="pagingPc"
+      style="float: right; margin-top: 10px"
+      class="pagination"
+      nzShowSizeChanger
+      nzShowQuickJumper
+      [nzTotal]="totalCount"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageSizeChange)="filterChange(searchText)"
+      (nzPageIndexChange)="filterChange(searchText)"
+      [nzSize]="'small'"
+    >
+    </nz-pagination> -->
+
+<label style="margin-top: 5px">
+    <nz-tag [nzColor]="'rgba(255, 85, 0, 0.8)'">Customer {{ listCustomer?.totalCount }}</nz-tag>
+</label>

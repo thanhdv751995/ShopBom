@@ -13,9 +13,9 @@ namespace ShopBom.Products
     {
         public string Name { get; set; }
         public string Price { get; set; }
-        public Guid IdColor { get; set; }
-        public Guid IdSize { get; set; }
-        public Guid IdProductType { get; set; }
+        public Guid? IdColor { get; set; }
+        public Guid? IdSize { get; set; }
+        public Guid? IdProductType { get; set; }
 
         private Product()
         {
@@ -26,9 +26,9 @@ namespace ShopBom.Products
             Guid id,
             [NotNull] string name,
              string price,
-            Guid idColor,
-            Guid idSize,
-            Guid idProductType
+            Guid? idColor,
+            Guid? idSize,
+            Guid? idProductType
             ) : base(id)
         {
             SetName(name);
