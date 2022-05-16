@@ -16,9 +16,9 @@ namespace ShopBom.Products
         public Product CreateAsync(
             [NotNull] string name,
              string price,
-            Guid idColor,
-            Guid idSize,
-            Guid idProductType
+            Guid? idColor,
+            Guid? idSize,
+            Guid? idProductType
             )
         {
             return new Product(
