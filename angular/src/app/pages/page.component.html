@@ -1,0 +1,57 @@
+<nz-layout class="app-layout">
+    <nz-sider  class="menu-sidebar" nzCollapsible nzWidth="256px"
+      nzBreakpoint="md" [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="sidebar-logo">
+        <a href="" target="_blank">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjeWE1AkPeX6yFzZbLmRyoxc-J_y3SVpKtJCbdy1XM_9P7TljHxFCSFsG0xFoYvu-_57Q&usqp=CAU"
+            alt="logo">
+          <h1>SHOP BOM</h1>
+        </a>
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li routerLink="/product" nzSelected = {{product}} nz-menu-item nz-tooltip nzTooltipPlacement="right" >
+          <i  nz-icon nzType="read" ></i>
+          <span>Sản Phẩm</span>
+        </li>
+        <li nz-button (click)="nextRound('order')" nz-menu-item nz-tooltip nzTooltipPlacement="right">
+          <i nz-icon nzType="shopping-cart"></i>
+          <span>Đơn Hàng</span>
+        </li>
+        <li routerLink="/customer" nzSelected = {{customer}} nz-menu-item nz-tooltip nzTooltipPlacement="right">
+          <i nz-icon nzType="solution"></i>
+          <span>Khách Hàng</span>
+        </li>
+        <li nz-button (click)="nextRound('promotion')" nz-menu-item nz-tooltip nzTooltipPlacement="right">
+          <i nz-icon nzType="percentage"></i>
+          <span>Khuyến Mãi</span>
+        </li>
+        <li nz-button (click)="nextRound('color')" nz-menu-item nz-tooltip nzTooltipPlacement="right">
+          <i nz-icon nzType="highlight"></i>
+          <span>Màu sp</span>
+        </li>
+        <li nz-button (click)="nextRound('size')" nz-menu-item nz-tooltip nzTooltipPlacement="right">
+          <i nz-icon nzType="sliders"></i>
+          <span>Size</span>
+        </li>
+        <li nz-button (click)="nextRound('productType')" nz-menu-item nz-tooltip nzTooltipPlacement="right">
+          <i nz-icon nzType="database"></i>
+          <span>Loại sp</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header >
+        <div class="app-header">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+          </span>
+        </div>
+      </nz-header>
+      <nz-content>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>

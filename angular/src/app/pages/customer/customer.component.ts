@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customers/customer.service';
 import { MessageService } from 'src/app/services/message/message.service';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-customer',
@@ -24,9 +26,13 @@ export class CustomerComponent implements OnInit {
   isGetListCustomerLoading = false;
   constructor(private customerService: CustomerService,
     private message: MessageService,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private shareService: ShareService,
+    public router: Router,) { }
 
   ngOnInit(): void {
+    this.shareService.appName = this.router.url;
+    console.log(this.shareService.appName);
     this.customerForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
       phoneNumber : new FormControl('', [Validators.required]),

@@ -10,6 +10,7 @@ export class ShareService {
   public REST_API_SERVER = environment.apis.default.url;
   public API_ACCOUNT = environment.AccountApi.accountApi;
   public API_ACTIVITY = environment.apiActivity.default.url;
+  public appName='' ;
   public httpOptions = {
     headers: new HttpHeaders({
       // 'Content-Type': 'application/json',
@@ -111,7 +112,9 @@ export class ShareService {
     // //   })
     // // };
   }
-
+  get getUserData() {
+    return JSON.parse(localStorage.getItem('userData'));
+  }
   deleteLocalData() {
     localStorage.clear();
   }
