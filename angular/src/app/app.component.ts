@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { ShareService } from './services/share.service';
 
 @Component({
@@ -10,24 +11,13 @@ import { ShareService } from './services/share.service';
 export class AppComponent {
   isCollapsed = false;
   public app = "product";
-  currentRouter;
   public product = false;
   public customer = false;
   constructor(public router: Router,
-    private shareService: ShareService
-    ) {}
- ngOnInit(): void {
-  this.currentRouter = this.router.url;
-  if (this.currentRouter.includes('product')) this.product = true;
-  if (this.currentRouter.includes('customer')) this.customer = true;
+    public shareService: ShareService
+  ) { }
+  ngOnInit(): void {
+
   }
-  nextRound(nameApp){
-    this.app = nameApp;
-    if(this.app == "product"){
-      this.router.navigate(['product']);
-    }
-    if(this.app == "customer"){
-      this.router.navigate(['customer']);
-    }
-  }
+
 }

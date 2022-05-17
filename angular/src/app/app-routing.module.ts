@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { CustomerComponent } from './pages/customer/customer.component';
+import { PageModule } from './pages/page.module';
 import { ProductComponent } from './pages/product/product.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/product' },
-  { path: 'product',component : ProductComponent },
-  { path: 'login',component : LoginComponent },
-  { path: 'customer',component : CustomerComponent },
+  
+  // { path: '',   redirectTo: '/page', pathMatch: 'full' },
+  { path: '',  loadChildren: () => import(`./pages/page.module`).then(m => m.PageModule) },
+  { path: 'login',component : LoginComponent }, 
+  
 ];
 
 @NgModule({
